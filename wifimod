@@ -1,0 +1,44 @@
+#!/usr/bin/python3
+import sys
+path = "/etc/hostapd/hostapd.wpa_psk"
+#path ="D:\SDN Project\hostapd.wpa_psk"
+
+def getVlans() :
+    vlans = []
+    with open(path, 'r+'):
+        for line in file:
+                if line.startswith('vlanid='):
+                    id=line[6:]
+                    vlans.append(int(id,10))
+                if vlans.len()>1:
+                    vlans.append(0000)
+                return vlans
+
+def rmVlan(int):
+    with open(path, 'r+') as file:
+        for line in file:
+            if line.startswith('vlanid='+str(int)): continue
+            else: file.write(line)
+        file.truncate()
+
+def addVlan(passwd):
+    vlans = getVlans
+    vlanCtr = 0
+    with open(path, 'a') as file:
+# WIP --> If vlanCtr is in getVlans
+        vlanCtr += 1
+        file.write("vlanid="+str(vlanCtr) + " 00:00:00:00:00:00 " + passwd)
+
+list =  '{ "getVlans": {}, "rmVlan": { "id": int }, "addVlan": { "passwd": "string"} }'
+if sys.argv[1] == "list":
+    print(list)
+else:
+    if sys.argv[1] == "call":
+        if sys.argv[2] == "getVlans":
+            getVlans()
+        elif sys.argv[2] == "rmVlan":
+            rmVlan(input())
+        elif args[1] == "addVlan":
+            addVlan(input())
+
+
